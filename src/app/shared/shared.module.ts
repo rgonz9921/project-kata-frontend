@@ -10,6 +10,8 @@ import {FormsModule} from "@angular/forms";
 import {UserLoginComponent} from "../components/molecules/user-login/user-login.component";
 import {HttpClientModule} from "@angular/common/http";
 import {LogoutComponent} from "../components/molecules/logout/logout.component";
+import {ReservationComponent} from "../components/organisms/reservation/reservation.component";
+import {CreateUserComponent} from "../components/molecules/create-user/create-user.component";
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import {LogoutComponent} from "../components/molecules/logout/logout.component";
     EventListComponent,
     EventDetailComponent,
     UserLoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    ReservationComponent,
+    CreateUserComponent
   ],
   exports: [
     HeaderComponent,
@@ -27,7 +31,9 @@ import {LogoutComponent} from "../components/molecules/logout/logout.component";
     EventListComponent,
     EventDetailComponent,
     UserLoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    ReservationComponent,
+    CreateUserComponent
   ],
   imports: [
     CommonModule,

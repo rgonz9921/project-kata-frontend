@@ -1,5 +1,9 @@
-import {Component, Input} from '@angular/core';
+import {Component, inject, Input} from '@angular/core';
 import {IEvent} from "../../../models/event.model";
+import {ReservationService} from "../../../services/reservation.service";
+import {IReservationRequest} from "../../../models/reservation-request.interface";
+import {TicketType} from "../../../models/ticket-type.enum";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'org-event-detail',
@@ -9,9 +13,39 @@ import {IEvent} from "../../../models/event.model";
 })
 export class EventDetailComponent {
   @Input() event!: IEvent;
+
+  private reservationService = inject(ReservationService);
+
   quantityGeneral: number = 1;
   quantityVip: number = 1;
 
+  constructor(private router: Router) {}
+
+  reserve(ticketType: TicketType, quantity: number) {
+    if (!quantity || quantity < 1) {
+      alert('Ingrese una cantidad válida');
+      return;
+    }
+    if(this.event._id){
+      const reservationRequest: IReservationRequest = {
+        eventId: this.event._id,
+        ticketType,
+        quantity
+      };
+      this.reservationService.createReservation(reservationRequest).subscribe({
+        next: (response) => {
+          console.log('Reserva exitosa:', response);
+          alert('Reserva realizada con éxito');
+          this.router.navigate(['/home']);
+        },
+        error: (error) => {
+          console.error('Error al reservar:', error);
+          alert('Error al realizar la reserva');
+        }
+      });
+    }
+    console.log(`Reservando ${quantity} boletos de tipo ${ticketType}`);
+  }
 
   hasTicketType(type: string): boolean {
     return !!this.event?.tickets?.[type];
@@ -32,4 +66,6 @@ export class EventDetailComponent {
   isSoldOut(type: string): boolean {
     return this.getTicketsSold(type) >= this.getTicketsTotal(type);
   }
+
+  protected readonly TicketType = TicketType;
 }

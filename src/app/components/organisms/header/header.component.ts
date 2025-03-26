@@ -4,6 +4,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {UserLoginComponent} from "../../molecules/user-login/user-login.component";
 import {AuthService} from "../../../services/auth.service";
 import {LogoutComponent} from "../../molecules/logout/logout.component";
+import {User} from "../../../models/user.interface";
 
 @Component({
   selector: 'org-header',
@@ -23,11 +24,6 @@ export class HeaderComponent implements OnInit {
 
   checkLoginStatus(): void {
     this.isAuthenticated = this.authService.isAuthenticated();
-  }
-
-  logout(): void {
-    this.authService.logout();
-    this.isAuthenticated = false;
   }
 
   openLoginModal(): void {
@@ -50,7 +46,6 @@ export class HeaderComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.isAuthenticated = false;
-        console.log('Sesión cerrada');
       }
     });
   }
@@ -60,6 +55,10 @@ export class HeaderComponent implements OnInit {
   }
 
   goToProfile() {
-    console.log('goToProfile');
+    const userString = localStorage.getItem('user');
+    const user: User | null = userString ? JSON.parse(userString) : null;
+    if(user){
+      this.router.navigate(['/profile', user._id]);
+    }
   }
 }

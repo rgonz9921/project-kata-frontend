@@ -7,20 +7,27 @@
       </mat-card-header>
 
       <mat-card-content>
-        <p><mat-icon>calendar_today</mat-icon> Fecha de evento: {{ event?.dateOfEvent | date:'fullDate' }}</p>
-        <p><mat-icon>place</mat-icon> Ubicación: {{ event?.location }}</p>
-        <p><mat-icon>person</mat-icon> Artista: {{ event?.artist?.join(', ') }}</p>
+        <p>
+          <mat-icon>calendar_today</mat-icon>
+          Fecha de evento: {{ event?.dateOfEvent | date:'fullDate' }}
+        </p>
+        <p>
+          <mat-icon>place</mat-icon>
+          Ubicación: {{ event?.location }}
+        </p>
+        <p>
+          <mat-icon>person</mat-icon>
+          Artista: {{ event?.artist?.join(', ') }}
+        </p>
       </mat-card-content>
-
       <mat-divider></mat-divider>
-
       <div class="tickets-section" *ngIf="event?.tickets">
         <h3>Entradas</h3>
         <div class="ticket-info">
-          <mat-card class="ticket-card" *ngIf="hasTicketType('general')">
+          <mat-card class="ticket-card" *ngIf="hasTicketType(TicketType.GENERAL)">
             <mat-card-title>General</mat-card-title>
-            <span *ngIf="isSoldOut('general')" class="sold-out">🚫 Sold Out</span>
-            <span *ngIf="!isSoldOut('general')" class="available">✅ Disponibles</span>
+            <span *ngIf="isSoldOut(TicketType.GENERAL)" class="sold-out">🚫 Sold Out</span>
+            <span *ngIf="!isSoldOut(TicketType.GENERAL)" class="available">✅ Disponibles</span>
           </mat-card>
 
           <mat-card class="ticket-card" *ngIf="hasTicketType('vip')">
@@ -35,30 +42,35 @@
   <div class="tickets-section">
     <h3>Entradas</h3>
     <div class="ticket-info">
-      <mat-card class="ticket-card" *ngIf="hasTicketType('general')">
+      <mat-card class="ticket-card" *ngIf="hasTicketType(TicketType.GENERAL)">
         <mat-card-title>General</mat-card-title>
-        <p>Precio: ${{ getTicketPrice('general') }}</p>
-        <p>Vendidas: {{ getTicketsSold('general') }} / {{ getTicketsTotal('general') }}</p>
+        <p>Precio: ${{ getTicketPrice(TicketType.GENERAL) }}</p>
+        <p>Vendidas: {{ getTicketsSold(TicketType.GENERAL) }} / {{ getTicketsTotal(TicketType.GENERAL) }}</p>
         <mat-form-field appearance="outline">
           <mat-label>Cantidad</mat-label>
-          <input matInput type="number" [(ngModel)]="quantityGeneral" min="1" [max]="getTicketsTotal('general') - getTicketsSold('general')">
+          <input matInput type="number" [(ngModel)]="quantityGeneral" min="1"
+                 [max]="getTicketsTotal(TicketType.GENERAL) - getTicketsSold(TicketType.GENERAL)"s>
         </mat-form-field>
-        <button mat-button [disabled]="isSoldOut('general')">
-          <!--        (click)="reserve('general', quantityGeneral)"-->
+        <button mat-button
+                (click)="reserve(TicketType.GENERAL, quantityGeneral)"
+                [disabled]="isSoldOut(TicketType.GENERAL)
+          ">
           Reservar General
         </button>
       </mat-card>
 
-      <mat-card class="ticket-card" *ngIf="hasTicketType('vip') && !isSoldOut('vip')">
+      <mat-card class="ticket-card" *ngIf="hasTicketType(TicketType.VIP) && !isSoldOut(TicketType.VIP)">
         <mat-card-title>Vip</mat-card-title>
-        <p>Precio: ${{ getTicketPrice('vip') }}</p>
-        <p>Vendidas: {{ getTicketsSold('vip') }} / {{ getTicketsTotal('vip') }}</p>
+        <p>Precio: ${{ getTicketPrice(TicketType.VIP) }}</p>
+        <p>Vendidas: {{ getTicketsSold(TicketType.VIP) }} / {{ getTicketsTotal(TicketType.VIP) }}</p>
         <mat-form-field appearance="outline">
           <mat-label>Cantidad</mat-label>
-          <input matInput type="number" [(ngModel)]="quantityVip" min="1" [max]="getTicketsTotal('vip') - getTicketsSold('vip')">
+          <input matInput type="number" [(ngModel)]="quantityVip" min="1"
+                 [max]="getTicketsTotal(TicketType.VIP) - getTicketsSold(TicketType.VIP)">
         </mat-form-field>
-        <button mat-button [disabled]="isSoldOut('vip')">
-          <!--        (click)="reserve('vip', quantityVip)"-->
+        <button mat-button
+                (click)="reserve(TicketType.VIP, quantityVip)"
+                [disabled]="isSoldOut(TicketType.VIP)">
           Reservar VIP
         </button>
       </mat-card>
