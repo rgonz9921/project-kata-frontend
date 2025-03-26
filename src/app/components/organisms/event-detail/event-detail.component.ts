@@ -3,6 +3,7 @@ import {IEvent} from "../../../models/event.model";
 import {ReservationService} from "../../../services/reservation.service";
 import {IReservationRequest} from "../../../models/reservation-request.interface";
 import {TicketType} from "../../../models/ticket-type.enum";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'org-event-detail',
@@ -17,6 +18,8 @@ export class EventDetailComponent {
 
   quantityGeneral: number = 1;
   quantityVip: number = 1;
+
+  constructor(private router: Router) {}
 
   reserve(ticketType: TicketType, quantity: number) {
     if (!quantity || quantity < 1) {
@@ -33,6 +36,7 @@ export class EventDetailComponent {
         next: (response) => {
           console.log('Reserva exitosa:', response);
           alert('Reserva realizada con éxito');
+          this.router.navigate(['/home']);
         },
         error: (error) => {
           console.error('Error al reservar:', error);

@@ -1,0 +1,18 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+org-header {
+  flex-shrink: 0;
+}
+
+app-reservation {
+  flex: 1;
+  padding: 32px;
+}
+
+org-footer {
+  flex-shrink: 0;
+}
