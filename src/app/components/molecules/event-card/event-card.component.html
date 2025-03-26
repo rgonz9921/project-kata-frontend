@@ -1,0 +1,23 @@
+<div class="event-card" *ngIf="event" (click)="goToEventDetail()">
+  <h3>{{ event?.name }}</h3>
+  <p><strong>Fecha:</strong> {{ event?.dateOfEvent | date: 'medium' }}</p>
+  <p><strong>Ubicación:</strong> {{ event?.location }}</p>
+  <p><strong>Géneros:</strong> {{ event?.genres?.join(', ') }}</p>
+  <p><strong>Artistas:</strong> {{ event?.artist?.join(', ') }}</p>
+
+  <div *ngIf="event?.tickets">
+    <h4>Tickets</h4>
+    <p *ngIf="event?.tickets?.['general']">
+      🎟️ General: {{ event?.tickets?.['general']?.price | currency }}
+      ({{ event?.tickets?.['general']?.sold ?? 0 }}/{{ event?.tickets?.['general']?.total ?? 0 }} vendidos)
+      <span *ngIf="(event?.tickets?.['general']?.sold ?? 0) >= (event?.tickets?.['general']?.total ?? 0)" class="sold-out">- Sold Out 🚫</span>
+      <span *ngIf="(event?.tickets?.['general']?.sold ?? 0) < (event?.tickets?.['general']?.total ?? 0)" class="available">- Disponibles ✅</span>
+    </p>
+    <p *ngIf="event?.tickets?.['vip']">
+      🌟 VIP: {{ event?.tickets?.['vip']?.price | currency }}
+      ({{ event?.tickets?.['vip']?.sold ?? 0 }}/{{ event?.tickets?.['vip']?.total ?? 0 }} vendidos)
+      <span *ngIf="(event?.tickets?.['vip']?.sold ?? 0) >= (event?.tickets?.['vip']?.total ?? 0)" class="sold-out">- Sold Out 🚫</span>
+      <span *ngIf="(event?.tickets?.['vip']?.sold ?? 0) < (event?.tickets?.['vip']?.total ?? 0)" class="available">- Disponibles ✅</span>
+    </p>
+  </div>
+</div>

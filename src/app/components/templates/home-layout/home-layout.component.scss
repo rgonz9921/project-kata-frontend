@@ -1,0 +1,17 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+org-header {
+  flex-shrink: 0;
+}
+
+.content {
+  flex-grow: 1;
+}
+
+org-footer {
+  flex-shrink: 0;
+}

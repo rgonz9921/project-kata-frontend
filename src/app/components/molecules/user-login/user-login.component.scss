@@ -1,0 +1,16 @@
+.full-width {
+  width: 100%;
+}
+
+.dialog-content {
+  padding-top: 24px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 8px;
+}

@@ -1,0 +1,23 @@
+<mat-toolbar color="primary" class="header">
+  <span class="logo">TusEventos.com</span>
+  <span class="spacer"></span>
+  <nav class="nav-links">
+    <a mat-button (click)="goToHome()">Inicio</a>
+    <a mat-button (click)="goToProfile()">Perfil</a>
+  </nav>
+  <button
+    *ngIf="!isAuthenticated"
+    mat-raised-button
+    color="accent"
+    (click)="openLoginModal()">
+    Iniciar sesión
+  </button>
+  <button
+    *ngIf="isAuthenticated"
+    mat-raised-button
+    color="warn"
+    (click)="openLogoutModal()">
+    Cerrar Sesion
+  </button>
+</mat-toolbar>
+
