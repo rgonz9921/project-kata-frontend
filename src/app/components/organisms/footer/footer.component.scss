@@ -1,0 +1,16 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  font-size: 0.9rem;
+
+  .spacer {
+    flex-grow: 1;
+  }
+
+  .footer-links a {
+    margin-left: 16px;
+    font-weight: 500;
+  }
+}

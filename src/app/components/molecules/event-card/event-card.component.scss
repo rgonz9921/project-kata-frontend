@@ -1,0 +1,32 @@
+.event-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 8px 0;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  background: white;
+  width: 320px;
+  height: 320px;
+
+  h3 {
+    color: #007bff;
+  }
+
+  p {
+    margin: 4px 0;
+  }
+
+  h4 {
+    margin-top: 10px;
+  }
+}
+
+.sold-out {
+  color: red;
+  font-weight: bold;
+}
+
+.available {
+  color: green;
+  font-weight: bold;
+}
